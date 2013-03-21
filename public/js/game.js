@@ -9,8 +9,9 @@ var GAME_TYPE = 'Canvas';
 
 Game.prototype.init = function() {
 
-    Crafty.init(600,600);
+    Crafty.init(this.dimensions.width,this.dimensions.height);
     Crafty.canvas.init();
+    Crafty.background("#CCC");
 };
 
 Game.prototype.load = function() {
@@ -31,7 +32,7 @@ Game.prototype.load = function() {
     });
 };
 Game.prototype.start = function() {
-    
+    Crafty.scene('first')
 };
 
 
