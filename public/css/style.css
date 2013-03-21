@@ -1,0 +1,9 @@
+.header {
+   background: rgb(42, 117, 185);
+}
+.header h2 {
+    color: rgb(6, 58, 114);
+}
+.yui3-menu {
+    margin-bottom:15px;
+}
