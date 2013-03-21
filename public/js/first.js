@@ -8,7 +8,7 @@ var buildOutsideWalls = function(){
             }
         }
     }
-}
+};
 var buildFirstPartOfPath = function () {
     var lineTop = 13, lineBottom = 15;
     for (var i = 1; i < 6; i++) {
@@ -16,12 +16,17 @@ var buildFirstPartOfPath = function () {
                     .attr({ x: i * 16, y: lineTop * 16, z: 2 });
         Crafty.e("2D, Canvas, solid, block, Collision," + i + "_" + lineBottom )
             .attr({ x: i * 16, y: lineBottom * 16, z: 2 });
-    };
+    }
+    Crafty.e("2D, Canvas, solid, block, Collision," + i + "_" + lineBottom )
+            .attr({ x: i * 16, y: lineBottom * 16, z: 2 });
 };
+var buildSecondPartOfPath =function () {
 
+};
 Crafty.scene('first', function () {
     buildOutsideWalls();
     Crafty("0_14").destroy();
     Crafty("39_14").destroy();
     buildFirstPartOfPath();
+    buildSecondPartOfPath();
 });
