@@ -11,7 +11,7 @@ Game.prototype.init = function() {
 
     Crafty.init(this.dimensions.width,this.dimensions.height);
     Crafty.canvas.init();
-    Crafty.background("#CCC");
+    Crafty.background("url('/img/grid.png')");
 };
 
 Game.prototype.load = function() {
@@ -20,13 +20,16 @@ Game.prototype.load = function() {
             block: [0,0]
         });
         Crafty.sprite(16, '/img/enemy.png', {
-            enemy: [0, 0] 
+            enemy: [0, 0]
         });
         Crafty.sprite(16, '/img/player.png', {
-            player: [0,0] 
+            player: [0,0]
         });
         Crafty.sprite(16, '/img/turret.png', {
             turrent: [0,0] 
+        });
+        Crafty.sprite(16, '/img/trigger.png', {
+            trig: [0,0]
         });
         Crafty.trigger('GameLoaded');
     });

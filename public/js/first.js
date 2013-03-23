@@ -1,3 +1,4 @@
+const SPEED = 0.25;
 var buildOutsideWalls = function(){
 
     for (var i = 0; i < 40; i++) {
@@ -22,7 +23,6 @@ var _buildVerticalPath = function (lineLeft, lineRight, leftStart, rightStart, e
 }
 
 var _buildHorizontalPath = function (lineTop, lineBottom, start, end) {
-
     for (var i = start; i < end; i++) {
         Crafty.e("2D, Canvas, solid, block, Collision," + i + "_" + lineTop )
                     .attr({ x: i * 16, y: lineTop * 16, z: 2 });
@@ -69,40 +69,46 @@ var buildFourthParthOfPath = function () {
     Crafty.e("2D, Canvas, solid, block, Collision," + 29 + "_" + lineBottom )
         .attr({ x: 29 * 16, y: lineBottom * 16, z: 2 });
  }
-
+var AddTriggers = function () {
+    //6_14
+    Crafty.e('Actor,Collision, up, trig, 7_14')
+        .attr({x:7*16, y: 14*16,z:2}).collision();
+    
+    Crafty.e('Actor,Collision, right, trig, 6_4')
+        .attr({x:6*16, y: 4*16,z:2}).collision();
+    Crafty.e('Actor,Collision, down, trig, 6_14')
+        .attr({x:31*16, y: 5*16,z:2}).collision();
+    Crafty.e('Actor,Collision, right, trig, 6_14')
+        .attr({x:30*16, y: 15*16,z:2}).collision();
+};
 var AddEnemy = function(){         
     Crafty.e('Actor, enemy')
-        .attr({xspeed: 2, x: 0, y: (16*14), hp: 10,z: 2, xspeed:.25, yspeed:0, direction:"RIGHT"})
+        .attr({ x: 0, y: (16*14), hp: 10,z: 2, xspeed:SPEED, yspeed:0 })
         .bind("EnterFrame", function (e) { 
             this.x += this.xspeed;
             this.y += this.yspeed;
         })
-        .onHit('block', function (e) {
+        .onHit('up', function (e) {
             var currentX = this.x;
             this.x = this.x - this.xspeed;
             this.y = this.y - this.yspeed;
-            var currentXspeed = this.xspeed, 
-                currentYspeed = this.yspeed,
-                currentDirection = this.direction;
+            this._rotation = 180;
             this.xspeed = 0;
+            this.yspeed = -SPEED;
+        }).
+        onHit('right', function(e){
+            this.x = this.x - this.xspeed;
+            this.y = this.y - this.yspeed;
+            this._rotation = 180;
             this.yspeed = 0;
-            var xGrid = (Math.round(currentX/16));
-            var yGrid = Math.round(this.y/16);
-            var top = Crafty(xGrid + 1 + "_" + yGrid);
-            var bottom = Crafty(xGrid - 1 + "_" + yGrid);
-            var left = Crafty(xGrid + "_" + (yGrid - 1));
-            var right  = Crafty(xGrid + "_" + (yGrid + 1));
-            console.log(top);
-            console.log(bottom);
-            console.log(left);
-            console.log(right);
-            var newYspeed = (currentXspeed * -1);
-            var newXspeed =(currentYspeed * -1);
-            this.yspeed = newYspeed;
-            this.xspeed = newXspeed;
-            //determine next path.
-
-
+            this.xspeed = SPEED;
+        })
+        .onHit('down', function(e){
+            this.x = this.x - this.xspeed;
+            this.y = this.y - this.yspeed;
+            this._rotation = 180;
+            this.yspeed = SPEED;
+            this.xspeed = 0;
         })
         .collision()
         ;
@@ -116,7 +122,7 @@ Crafty.scene('first', function () {
     buildThirdPartOfPath();
     buildFourthParthOfPath();
     buildFifthPartOfPath();
-
+    AddTriggers();
 
     AddEnemy()
 });
