@@ -81,7 +81,8 @@ var AddTriggers = function () {
     Crafty.e('Actor,Collision, right, trig, 6_14')
         .attr({x:30*16, y: 15*16,z:2}).collision();
 };
-var AddEnemy = function(){         
+var AddEnemy = function(){   
+    
     Crafty.e('Actor, enemy')
         .attr({ x: 0, y: (16*14), hp: 10,z: 2, xspeed:SPEED, yspeed:0 })
         .bind("EnterFrame", function (e) { 
@@ -113,6 +114,14 @@ var AddEnemy = function(){
         .collision()
         ;
 }
+var AddEnemies = function () {
+    for (var i = 1; i < 1000; i++) { 
+        if(i % 100 === 0) {
+            console.log(i)
+            setTimeout(AddEnemy, i* 30);
+        }
+    };
+}
 Crafty.scene('first', function () {
     buildOutsideWalls();
     Crafty("0_14").destroy();
@@ -123,6 +132,5 @@ Crafty.scene('first', function () {
     buildFourthParthOfPath();
     buildFifthPartOfPath();
     AddTriggers();
-
-    AddEnemy()
+    AddEnemies();
 });

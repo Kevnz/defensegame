@@ -3,3 +3,4 @@ Crafty.c('Actor', {
     this.requires('2D, Canvas, Collision');
   }
 });
+
