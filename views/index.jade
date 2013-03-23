@@ -1,9 +1,12 @@
 extends layout
 
 block content
-   .header
-       h1= title
-    p Welcome to #{title}
-    script(src='/js/components.js')
-    script(src='/js/first.js')
-    script(src='/js/game.js')
+    .header.yui3-u-1
+       h1.yui3-u-1= title
+       h2.yui3-u Play the game
+    .content
+        p Welcome to #{title}
+        #cr-stage
+        script(src='/js/components.js')
+        script(src='/js/first.js')
+        script(src='/js/game.js')
