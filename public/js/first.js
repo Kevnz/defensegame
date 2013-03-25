@@ -70,18 +70,18 @@ var buildFourthParthOfPath = function () {
  };
 var AddTriggers = function () {
     //6_14
-    Crafty.e('Actor,Collision, up, trig, 7_14')
+    Crafty.e('Actor, Collision, up, trig, 7_14')
         .attr({x:7*GRID_CELL, y: 14*GRID_CELL,z:2}).collision();
-    Crafty.e('Actor,Collision, right, trig, 6_4')
+    Crafty.e('Actor, Collision, right, trig, 6_4')
         .attr({x:6*GRID_CELL, y: 4*GRID_CELL,z:2}).collision();
-    Crafty.e('Actor,Collision, down, trig, 6_14')
+    Crafty.e('Actor, Collision, down, trig, 6_14')
         .attr({x:31*GRID_CELL, y: 5*GRID_CELL,z:2}).collision();
-    Crafty.e('Actor,Collision, right, trig, 6_14')
+    Crafty.e('Actor, Collision, right, trig, 6_14')
         .attr({x:30*GRID_CELL, y: 15*GRID_CELL,z:2}).collision();
 };
 var AddEnemy = function(){
 
-    Crafty.e('Actor, enemy')
+    Crafty.e('Actor, enemy, tank, Collision')
         .attr({ x: 0, y: (GRID_CELL*14), hp: 10,z: 2, xspeed:SPEED, yspeed:0 })
         .bind("EnterFrame", function (e) {
             this.x += this.xspeed;
@@ -109,6 +109,9 @@ var AddEnemy = function(){
             this.yspeed = SPEED;
             this.xspeed = 0;
         })
+        .onHit('tur', function (e) {
+            console.log('tur hit en');
+        })
         .collision();
 };
 var AddEnemies = function () {
@@ -118,6 +121,19 @@ var AddEnemies = function () {
             setTimeout(AddEnemy, i* 30);
         }
     }
+};
+
+var AddTurret = function () {
+    //Crafty.e('Actor, Collision, turret, 8_14')
+    //    .attr({x:8*GRID_CELL, y: 14*GRID_CELL,z:2}).collision();
+    var turretSize = GRID_CELL * 3;
+
+    Crafty.e('Actor, turret, HitBox, tur, 7_13, Collision')
+        .attr({x:6*GRID_CELL, y: 12*GRID_CELL,z:2})
+        .collision(new Crafty.polygon([[-32, turretSize],[turretSize,turretSize],[turretSize,-32], [-32,-32]]))
+        .onHit('tank', function (e) {
+            console.log('test');
+        });
 };
 Crafty.scene('first', function () {
     buildOutsideWalls();
@@ -130,4 +146,5 @@ Crafty.scene('first', function () {
     buildFifthPartOfPath();
     AddTriggers();
     AddEnemies();
+    AddTurret()
 });

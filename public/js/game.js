@@ -25,8 +25,8 @@ Game.prototype.load = function() {
         Crafty.sprite(16, '/img/player.png', {
             player: [0,0]
         });
-        Crafty.sprite(16, '/img/turret.png', {
-            turrent: [0,0] 
+        Crafty.sprite(48, '/img/turret.png', {
+            turret: [0,0]
         });
         Crafty.sprite(16, '/img/trigger.png', {
             trig: [0,0]
