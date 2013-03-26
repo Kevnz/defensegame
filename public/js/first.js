@@ -109,9 +109,6 @@ var AddEnemy = function(){
             this.yspeed = SPEED;
             this.xspeed = 0;
         })
-        .onHit('tur', function (e) {
-            console.log('tur hit en');
-        })
         .collision();
 };
 var AddEnemies = function () {
@@ -124,15 +121,17 @@ var AddEnemies = function () {
 };
 
 var AddTurret = function () {
-    //Crafty.e('Actor, Collision, turret, 8_14')
-    //    .attr({x:8*GRID_CELL, y: 14*GRID_CELL,z:2}).collision();
-    var turretSize = GRID_CELL * 3;
-
-    Crafty.e('Actor, turret, HitBox, tur, 7_13, Collision')
-        .attr({x:6*GRID_CELL, y: 12*GRID_CELL,z:2})
+    var turretSize = GRID_CELL * 6;
+    Crafty.e('Actor, turret, WiredHitBox, tur, 7_13, Collision')
         .collision(new Crafty.polygon([[-32, turretSize],[turretSize,turretSize],[turretSize,-32], [-32,-32]]))
+        .attr({x:6*GRID_CELL, y: 12*GRID_CELL,z:2, ontarget: false})
         .onHit('tank', function (e) {
-            console.log('test');
+            if(!this.ontarget){
+              console.log(e[0]);
+              console.log(e[1]);
+              this.ontarget=true;
+            }
+            
         });
 };
 Crafty.scene('first', function () {
