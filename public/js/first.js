@@ -145,5 +145,5 @@ Crafty.scene('first', function () {
     buildFifthPartOfPath();
     AddTriggers();
     AddEnemies();
-    AddTurret()
+    AddTurret();
 });
