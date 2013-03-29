@@ -131,7 +131,6 @@ var AddTurret = function () {
               console.log(e[1]);
               this.ontarget=true;
             }
-            
         });
 };
 Crafty.scene('first', function () {
